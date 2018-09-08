@@ -21,26 +21,61 @@ $(function() {
          * allFeeds in app.js to be an empty array and refresh the
          * page?
          */
-        it('are defined', function() {
-            expect(allFeeds).toBeDefined();
-            expect(allFeeds.length).not.toBe(0);
-        });
 
+        beforeEach(function() {
+            it('are defined', function() {
+                expect(allFeeds).toBeDefined();
+                expect(allFeeds.length).not.toBe(0);
+            });
+    
+          });
+        
+        
 
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
+        it('URLs are defined', function() {
+            allFeeds.forEach((feed)=>{
+                expect(feed).toBeDefined();
+                expect(feed.url).toBeDefined();
+                expect(feed.url).not.toEqual("");
+
+            })
+           
+        });
 
 
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
+        it('Names are defined', function() {
+            allFeeds.forEach((feed)=>{
+                expect(feed).toBeDefined();
+                expect(feed.name).toBeDefined();
+                expect(feed.name).not.toEqual("");
+
+            })
+           
+        });
     });
 
 
     /* TODO: Write a new test suite named "The menu" */
+    describe('The menu', function() {
+        beforeEach(function() {
+          //  loadStyleFixtures('../css/style.css');
+        });
+        it("should be hidden by default",function(){
+            //$(".icon-list").click();
+            expect('body').not.toHaveClass('menu-hidden');
+           
+
+
+        });
+    });
 
         /* TODO: Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
