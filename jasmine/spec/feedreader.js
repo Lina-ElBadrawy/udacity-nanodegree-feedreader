@@ -67,14 +67,31 @@ $(function() {
     describe('The menu', function() {
         beforeEach(function() {
           //  loadStyleFixtures('../css/style.css');
+          //let body=$('body');
         });
         it("should be hidden by default",function(){
-            //$(".icon-list").click();
-            expect('body').not.toHaveClass('menu-hidden');
+            let body=$('body');
+            expect(body).not.toBeNull();
+            expect(body).not.toBeUndefined();
+            expect('body').toHaveClass('menu-hidden');
+            expect(body.hasClass('menu-hidden')).toBe(true);
            
+           //expect($('body').hasClass('menu-hidden')).toBe(true);
 
 
         });
+
+        it("should change visibility when the menu icon is clicked",function(){         
+           
+            $('.menu-icon-link').click();
+            var menuhidden= $("body").hasClass('menu-hidden');
+            (!menuhidden)? expect('body').not.toHaveClass('menu-hidden'): expect('body').toHaveClass('menu-hidden');
+            $('.menu-icon-link').click();
+             var menuhidden= $("body").hasClass('menu-hidden');
+            (!menuhidden)? expect('body').not.toHaveClass('menu-hidden'): expect('body').toHaveClass('menu-hidden');
+
+        });
+
     });
 
         /* TODO: Write a test that ensures the menu element is
@@ -96,7 +113,42 @@ $(function() {
          * a single .entry element within the .feed container.
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
-         */
+        
+        describe('Initial Entries', function() {
+            beforeEach(function(done) {
+                loadFeed(0).done(function (result) {
+                    returnedJSON = result.feed.entries;;        
+                    // Invoke the special done callback
+                    done();
+                });
+            });
+            it("should be at least a single .entry element within the .feed container",function(){
+                expect($('.feed .entry').length).toBeGreaterThan(0);
+                
+                var container=$('.feed');
+               
+                expect(returnedJSON).not.toEqual({});
+                expect(returnedJSON).not.toBeUndefined();
+               
+            });
+        }); */
+
+        describe('Initial Entries', () => {
+           
+            beforeEach((done) => {
+                loadFeed(0, done);
+            });
+            it('has at least one entry in feed', (done) => {
+                var feed=$('.feed');
+                let entry = $('.feed .entry'); // Select all entry elements that are children of feed.
+                expect(feed).not.toBeNull();
+                expect(feed).toBeDefined();
+                expect(entry).toBeDefined();
+               
+                done();
+            });
+    
+        });
 
     /* TODO: Write a new test suite named "New Feed Selection" */
 
@@ -104,4 +156,28 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+
+        describe('New Feed Selection', () => {
+            let firstFeedList,secondFeedList;
+            beforeEach((done) => {
+                loadFeed(0,function(){
+                     firstFeedList = $('.feed .entry').html();
+                    loadFeed(1,function(){
+                         secondFeedList = $('.feed .entry').html();
+                        done();
+                    });
+                    //done();
+                });
+            });
+            it('should actually changesfor the content', (done) => {
+               
+                expect(firstFeedList).not.toBeNull();
+                expect(firstFeedList).toBeDefined();
+                expect(secondFeedList).not.toBeNull();
+                expect(secondFeedList).toBeDefined();                
+                expect(firstFeedList).not.toEqual(secondFeedList);
+                done();
+            });
+    
+        });
 }());

@@ -128,6 +128,7 @@ $(function() {
      * on the body to perform the hiding/showing of our menu.
      */
     menuIcon.on('click', function() {
+        debugger;
         $('body').toggleClass('menu-hidden');
     });
 }());
