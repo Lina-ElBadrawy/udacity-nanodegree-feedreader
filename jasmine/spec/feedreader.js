@@ -96,7 +96,8 @@ $(function() {
                 let entry = $('.feed .entry'); // Select all entry elements that are children of feed.
                 expect(feed).not.toBeNull();
                 expect(feed).toBeDefined();
-                expect(entry).toBeDefined();               
+                expect(entry).toBeDefined();       
+                expect(entry.length).toBeGreaterThan(1);        
                 done();
             });
     
@@ -106,6 +107,7 @@ $(function() {
         describe('New Feed Selection', () => {
             let firstFeedList,secondFeedList;
             beforeEach((done) => {
+                expect(allFeeds.length).toBeGreaterThan(1);   
                 loadFeed(0,function(){
                      firstFeedList = $('.feed .entry').html();
                     loadFeed(1,function(){
