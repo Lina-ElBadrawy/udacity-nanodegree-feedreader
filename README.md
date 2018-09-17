@@ -1,8 +1,9 @@
-#Project Overview
+# FeedReader
+## Project Overview
 
 Ths Project encapsulates set of Test Suites for a feed reader application
 
-#Download and Install Feed reader
+## Download and Install Feed reader
 
 Use the following command to get a clone of working Classic Arcade Game
 
